@@ -13,7 +13,7 @@ export enum MemberStatus {
     BLOCK = "BLOCK",
     DELETE = "DELETE",
 }
-registerEnumType(MemberStatus, {name: "MemberType"});
+registerEnumType(MemberStatus, {name: "MemberStatus"});
 
 export enum MemberAuthType {
     PHONE = "PHONE",
@@ -21,4 +21,4 @@ export enum MemberAuthType {
     TELEGRAM = "TELEGRAM",
 }
 
-registerEnumType(MemberAuthType, {name: "MemberType"});
+registerEnumType(MemberAuthType, {name: "MemberAuthType"});
