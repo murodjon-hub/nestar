@@ -17,7 +17,7 @@ import { T } from './libs/types/common';
       playground: true,
       uploads: false,
       autoSchemaFile: true,
-      formatError: (error: T) =>{
+      formatError: (error: T) => {
       const graphQLFormattedError = {
        code: error?.extensions.code,
        message:
@@ -28,8 +28,9 @@ import { T } from './libs/types/common';
       console.log("GRAPHQL GLOBAL ERR:", graphQLFormattedError);
       return graphQLFormattedError;
       },
-    }), ComponentsModule, 
-        DatabaseModule,
+    }), 
+    ComponentsModule, 
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
