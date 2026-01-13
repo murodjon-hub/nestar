@@ -204,10 +204,10 @@ export class PropertyService {
 	public async getAllPropertiesByAdmin(input: AllPropertiesInquiry): Promise<Properties> {
 		const { propertyStatus, propertyLocationList } = input.search;
 		const match: T = {};
-		const sort: T = { [input?.sort ?? 'createAt']: input?.direction ?? Direction.DESC };
+		const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
 
 		if (propertyStatus) match.propertyStatus = propertyStatus;
-		if (propertyLocationList) match.propertyLocation = { $inc: propertyLocationList };
+		if (propertyLocationList) match.propertyLocation = { $in: propertyLocationList };
 
 		const result = await this.propertyModel
 			.aggregate([
