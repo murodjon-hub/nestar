@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, } from '@nestjs/common';
 import FollowSchema from '../../schemas/Follow.model';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FollowResolver } from './follow.resolver';
