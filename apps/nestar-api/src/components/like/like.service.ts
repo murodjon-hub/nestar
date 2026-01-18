@@ -31,12 +31,19 @@ export class LikeService {
   return modifier;
 }
 
-public async checkLikeExistance(input: LikeInput): Promise<MeLiked[]>{
-  const {memberId, likeRefId} = input;
-  const result = await this.likeModel.findOne({memberId: memberId, likeRefId: likeRefId}).exec();
-  return result ? [{memberId: memberId, likeRefId: likeRefId, myFavorite: true}] : [];
-}
+public async checkLikeExistance(input: LikeInput): Promise<MeLiked[]> {
+  const { memberId, likeRefId, likeGroup } = input;
 
+  const result = await this.likeModel.findOne({
+    memberId,
+    likeRefId,
+    likeGroup,
+  }).exec();
+
+  return result
+    ? [{ memberId, likeRefId, myFavorite: true }]
+    : [];
+}
 
 }
         
