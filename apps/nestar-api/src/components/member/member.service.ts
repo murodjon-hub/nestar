@@ -14,6 +14,7 @@ import { LikeInput } from '../../libs/dto/like/like.input';
 import { LikeGroup } from '../../libs/enums/like.enum';
 import { LikeService } from '../like/like.service';
 import { Follower, Following, MeFollowed } from '../../libs/dto/follow/follow';
+import { lookupAuthMemberLiked } from '../../libs/config';
 
 @Injectable()
 export class MemberService {
@@ -72,7 +73,6 @@ export class MemberService {
 		const search: T = {
 			_id: targetId,
 			memberStatus: {
-				
 				$in: [MemberStatus.ACTIVE, MemberStatus.BLOCK],
 			},
 		};
@@ -91,7 +91,7 @@ export class MemberService {
 			//meLiked
 			const likeInput = { memberId: memberId, likeRefId: targetId, likeGroup: LikeGroup.MEMBER };
 			targetMember.meLiked = await this.likeService.checkLikeExistance(likeInput);
-			
+
 			targetMember.meFollowed = await this.checkSubscription(memberId, targetId);
 			//meFollowed
 		}
@@ -118,7 +118,11 @@ export class MemberService {
 				{ $sort: sort },
 				{
 					$facet: {
-						list: [{ $skip: (input.page - 1) * input.limit }, { $limit: input.limit }],
+						list: [{ $skip: (input.page - 1) * input.limit }, 
+							  { $limit: input.limit }, 
+							   lookupAuthMemberLiked(memberId),
+							],
+
 						metaCounter: [{ $count: 'total' }],
 					},
 				},
@@ -177,8 +181,6 @@ export class MemberService {
 		if (!result) throw new InternalServerErrorException(Message.UPDATE_FAILED);
 		return result;
 	}
-
-	
 
 	public async memberStatsEditor(input: StatisticModifier): Promise<Member> {
 		console.log('executed');
