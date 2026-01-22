@@ -71,7 +71,7 @@ export const lookupAuthMemberFollowed = (input: LookupAuthMemberFollowed) => {
 			let: {
 				localFollowerId: followerId,
 				localFollowingId: followingId,
-				localMyFavorite: true,
+				localMyFollowing: true,
 			},
 			pipeline: [
 				{
@@ -86,7 +86,7 @@ export const lookupAuthMemberFollowed = (input: LookupAuthMemberFollowed) => {
 						_id: 0,
 						followerId: 1,
 						followingId: 1,
-						myFollowing: '$$localMyFavorite',
+						myFollowing: '$$localMyFollowing'
 					},
 				},
 			],
