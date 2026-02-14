@@ -43,9 +43,10 @@ export class PropertyService {
 			});
 			return result;
 		} catch (err) {
-			console.log('Error, Service.model:', err.message);
-			throw new BadRequestException(Message.CREATE_FAILED);
-		}
+  console.log(err);
+  throw err;
+}
+
 	}
 
 	public async getProperty(memberId: ObjectId, propertyId: ObjectId): Promise<Property> {
